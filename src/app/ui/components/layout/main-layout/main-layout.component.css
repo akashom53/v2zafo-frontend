@@ -1,0 +1,277 @@
+:host {
+    display: block;
+    height: 100%;
+}
+
+/* Layout Container */
+.layout-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #f5f7fa;
+    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: fixed;
+    /* Fix the entire layout */
+    width: 100%;
+    /* Ensure it spans the full width */
+    top: 0;
+    left: 0;
+}
+
+/* Side Navigation */
+.side-nav {
+    width: 70px;
+    background-color: #ffffff;
+    border-right: 1px solid #e0e0e0;
+    transition: width 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    height: 100vh;
+    /* Ensure it takes full height */
+    overflow-x: hidden;
+    /* Prevent horizontal scrolling */
+    overflow-y: auto;
+    /* Allow vertical scrolling if needed */
+    z-index: 10;
+}
+
+/* Also update the nav-items to prevent horizontal scrolling */
+.nav-items {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* Prevent horizontal scrolling */
+}
+
+/* Ensure nav-item text doesn't cause overflow */
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    color: #666;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    white-space: nowrap;
+    overflow: hidden;
+    /* Hide any overflow content */
+    text-overflow: ellipsis;
+    /* Add ellipsis for overflowing text */
+}
+
+.nav-expanded .side-nav {
+    width: 240px;
+}
+
+.logo-container {
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+    height: 64px;
+}
+
+/* Change the logo color */
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #235C7A;
+    /* Changed from #4a6cf7 */
+}
+
+/* Change the active/hover state for nav items */
+.nav-item:hover,
+.nav-item.active {
+    background-color: #edf4f7;
+    /* Lighter variant of #235C7A instead of #f0f4ff */
+    color: #235C7A;
+    /* Changed from #4a6cf7 */
+    border-left-color: #235C7A;
+    /* Changed from #4a6cf7 */
+}
+
+/* Change the menu toggle hover state */
+.menu-toggle:hover {
+    background-color: #edf4f7;
+    /* Lighter variant of #235C7A instead of #f0f4ff */
+    color: #235C7A;
+    /* Changed from #4a6cf7 */
+}
+
+/* Change the toolbar action hover state */
+.toolbar-action:hover {
+    background-color: #edf4f7;
+    /* Lighter variant of #235C7A instead of #f0f4ff */
+    color: #235C7A;
+    /* Changed from #4a6cf7 */
+}
+
+.nav-items {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 0;
+    overflow-y: auto;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    color: #666;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    white-space: nowrap;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    background-color: #f0f4ff;
+    color: #235C7A;
+    border-left-color: #235C7A;
+}
+
+.nav-icon {
+    font-size: 1.2rem;
+    min-width: 24px;
+    margin-right: 16px;
+    text-align: center;
+}
+
+.nav-label {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.nav-expanded .nav-label {
+    opacity: 1;
+}
+
+/* Main Content Area */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100vh;
+    /* Ensure it takes full height */
+}
+
+/* Toolbar */
+.toolbar {
+    height: 64px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    z-index: 5;
+    flex-shrink: 0;
+    /* Prevent toolbar from shrinking */
+}
+
+.menu-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #666;
+    padding: 8px;
+    margin-right: 16px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.menu-toggle:hover {
+    background-color: #f0f4ff;
+    color: #4a6cf7;
+}
+
+.toolbar-title {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #333;
+}
+
+.toolbar-spacer {
+    flex: 1;
+}
+
+.toolbar-actions {
+    display: flex;
+    align-items: center;
+}
+
+.toolbar-action {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 12px;
+    margin-left: 8px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    color: #666;
+    transition: background-color 0.2s ease;
+}
+
+.toolbar-action:hover {
+    background-color: #f0f4ff;
+    color: #4a6cf7;
+}
+
+.action-icon {
+    font-size: 1.2rem;
+}
+
+.action-label {
+    margin-left: 8px;
+    display: none;
+}
+
+.nav-expanded .action-label {
+    display: inline;
+}
+
+/* Page Content */
+.page-content {
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;
+    /* Only this area should scroll */
+    height: calc(100vh - 64px);
+    /* Full height minus toolbar height */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .side-nav {
+        position: absolute;
+        height: 100%;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+
+    .nav-expanded .side-nav {
+        transform: translateX(0);
+        width: 240px;
+    }
+
+    .nav-expanded .main-content::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 5;
+        pointer-events: all;
+    }
+}

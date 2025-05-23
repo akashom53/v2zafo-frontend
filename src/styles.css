@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  background-color: #f5f7fa; /* This could be adjusted to a very light variant of #235C7A if desired */
+}
+
+app-root {
+  display: block;
+  height: 100%;
+}
+
+/* Add a global accent color variable for consistency */
+:root {
+  --primary-color: #235C7A;
+  --primary-light: #edf4f7;
+  --primary-dark: #1a4559;
+}

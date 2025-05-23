@@ -1,0 +1,54 @@
+<div class="layout-container" [class.nav-expanded]="isNavExpanded">
+    <!-- Side Navigation -->
+    <aside class="side-nav">
+        <div class="logo-container">
+            <span class="logo">ZAFO</span>
+        </div>
+        <nav class="nav-items">
+            <a href="#" class="nav-item active">
+                <span class="nav-icon">📊</span>
+                <span class="nav-label">Dashboard</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">👥</span>
+                <span class="nav-label">Users</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">📝</span>
+                <span class="nav-label">Reports</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">⚙️</span>
+                <span class="nav-label">Settings</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <!-- Toolbar -->
+        <header class="toolbar">
+            <button class="menu-toggle" (click)="toggleNav()">
+                <span class="menu-icon">☰</span>
+            </button>
+            <div class="toolbar-title">Admin Dashboard</div>
+            <div class="toolbar-spacer"></div>
+            <div class="toolbar-actions">
+                <button class="toolbar-action">
+                    <span class="action-icon">🔔</span>
+                    <span class="action-label">Notifications</span>
+                </button>
+                <button class="toolbar-action">
+                    <span class="action-icon">👤</span>
+                    <span class="action-label">Profile</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Page Content -->
+        <main class="page-content">
+            <ng-content></ng-content>
+        </main>
+    </div>
+</div>
+<!-- Remove this line below -->
