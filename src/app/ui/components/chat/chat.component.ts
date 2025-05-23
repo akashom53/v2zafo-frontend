@@ -1,5 +1,5 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MarkdownModule } from 'ngx-markdown';
 
@@ -11,7 +11,7 @@ const TEMP = `
 interface Message {
   text: string;
   sender: 'user' | 'bot';
-  timestamp: number;
+  timestamp: Date;
 }
 
 @Component({
@@ -25,18 +25,36 @@ export class ChatComponent {
   placeholder = 'Type your message...';
   messages: Message[] = [];
 
+  @ViewChild('bottomAnchor') bottomAnchor!: ElementRef;
+
   dummyRecieve() {
     const dummyResponse = TEMP;
-    this.messages.push({ text: dummyResponse, sender: 'bot', timestamp: Date.now() });
+    this.messages.push({ text: dummyResponse, sender: 'bot', timestamp: new Date() });
+  }
+
+  formatDateString(date: Date): string {
+    return date.toLocaleDateString() + ' ' + date.toLocaleTimeString(); // Adjust the format as needed
   }
 
   sendMessage() {
     if (this.message.trim() !== '') {
-      this.messages.push({ text: this.message, sender: 'user', timestamp: Date.now() });
+      this.messages.push({ text: this.message, sender: 'user', timestamp: new Date() });
       this.message = '';
       setTimeout(() => {
         this.dummyRecieve();
       }, 1000);
+    }
+  }
+
+  ngAfterViewChecked(): void {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom(): void {
+    try {
+      this.bottomAnchor.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    } catch (err) {
+      console.error('Scroll failed:', err);
     }
   }
 }
