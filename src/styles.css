@@ -23,3 +23,5 @@ app-root {
   --primary-light: #edf4f7;
   --primary-dark: #1a4559;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
