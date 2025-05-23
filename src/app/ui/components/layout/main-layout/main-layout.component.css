@@ -70,7 +70,7 @@
 .logo-container {
     padding: 20px 0;
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
     border-bottom: 1px solid #e0e0e0;
     height: 64px;
@@ -78,9 +78,8 @@
 
 /* Change the logo color */
 .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #235C7A;
+    margin-left: 0.5em;
+    width: 50px;
     /* Changed from #4a6cf7 */
 }
 
@@ -175,6 +174,8 @@
     flex-shrink: 0;
     /* Prevent toolbar from shrinking */
 }
+
+
 
 .menu-toggle {
     background: none;
