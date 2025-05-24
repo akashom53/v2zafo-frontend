@@ -18,8 +18,8 @@
     </div>
     <div class="input-container">
         <div class="input-container">
-            <input [placeholder]="placeholder" matInput type="text" [(ngModel)]="message" (keyup.enter)="sendMessage()">
-
+            <input [placeholder]="loggedIn$ | async" matInput type="text" [(ngModel)]="message"
+                (keyup.enter)="sendMessage()">
             <button (click)="sendMessage()">Send</button>
         </div>
     </div>

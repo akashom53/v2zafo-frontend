@@ -5,7 +5,7 @@ import { ApiService } from '../core/api.service';
 
 // Define interfaces for type safety
 interface LoginRequest {
-  email: string;
+  username: string;
   password: string;
 }
 
@@ -56,7 +56,7 @@ export class AuthService {
       return throwError(() => new Error('Password must be at least 6 characters'));
     }
 
-    const loginData: LoginRequest = { email, password };
+    const loginData: LoginRequest = { username: email, password };
 
     return this.apiService.post<LoginResponse>(`${this.AUTH_ENDPOINT}/login`, loginData, shouldRedirect)
       .pipe(
