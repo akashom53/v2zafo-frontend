@@ -28,4 +28,21 @@ export class AuthEffects {
                     )
             },
         )));
+
+    signup$ = createEffect(() => this.actions$.pipe(
+        ofType(AuthActions.signup),
+        switchMap(
+            (action) => {
+                return this.authService
+                    .signup(action.email, action.password, action.name)
+                    .pipe(
+                        map(data => {
+                            this.router.navigate(['/login'])
+                            return AuthActions.signupSuccess({ i: 0 });
+                        }),
+                        catchError(e => of(AuthActions.signupFailure({ error: e })))
+                    )
+            }
+        ),
+    ))
 }

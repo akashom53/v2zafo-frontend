@@ -16,7 +16,7 @@ interface LoginResponse {
 interface SignupRequest {
   email: string;
   password: string;
-  name: string;
+  username: string;
 }
 
 interface SignupResponse {
@@ -58,7 +58,7 @@ export class AuthService {
 
     const loginData: LoginRequest = { username: email, password };
 
-    return this.apiService.post<LoginResponse>(`${this.AUTH_ENDPOINT}/login`, loginData, shouldRedirect)
+    return this.apiService.post<LoginResponse>(`${this.AUTH_ENDPOINT}/login`, loginData, false, shouldRedirect)
       .pipe(
         tap(response => {
           // Store token in localStorage or a token service
@@ -91,7 +91,7 @@ export class AuthService {
    * @param name User's name
    * @returns Observable with signup response containing user details
    */
-  signup(email: string, password: string, name: string): Observable<SignupResponse> {
+  signup(email: string, password: string, username: string): Observable<SignupResponse> {
     // Validate inputs
     if (!email || !this.isValidEmail(email)) {
       return throwError(() => new Error('Please enter a valid email address'));
@@ -102,9 +102,9 @@ export class AuthService {
     }
 
     // Name can be optional in the UI, but we'll pass whatever is provided
-    const signupData: SignupRequest = { email, password, name };
+    const signupData: SignupRequest = { email, password, username };
 
-    return this.apiService.post<SignupResponse>(`users`, signupData)
+    return this.apiService.post<SignupResponse>(`users`, signupData, false, false)
       .pipe(
         tap(response => {
           // You could automatically log the user in here if desired

@@ -157,6 +157,7 @@ export class ApiService {
   }
 
   private handleError(error: AxiosError): never {
+    console.log("new ee", error)
     throw new HttpErrorResponse({
       error: error.response?.data,
       status: error.response?.status,

@@ -24,7 +24,7 @@ export class LoginComponent {
       alert('Invalid email or password. Please check your credentials.');
       return;
     }
-    this.store.dispatch(AuthActions.login({ email: "akash10@email.com", password: "password" }));
+    this.store.dispatch(AuthActions.login({ email: this.email, password: this.password }));
 
   }
 

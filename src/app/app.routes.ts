@@ -4,11 +4,13 @@ import { ChatComponent } from './ui/components/chat/chat.component';
 import { LoginComponent } from './ui/pages/login/login.component';
 import { SignupComponent } from './ui/pages/signup/signup.component';
 import { DashboardComponent } from './ui/pages/dashboard/dashboard.component';
+import { AuthGuard } from './auth/auth.guard';
 
 export const routes: Routes = [
     {
         path: '',
         component: MainLayoutComponent,
+        canActivate: [AuthGuard],
         children: [
             {
                 path: '',
