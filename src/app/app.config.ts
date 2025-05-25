@@ -7,7 +7,8 @@ import { authReducer } from './auth/state/auth.reducers';
 import { provideEffects } from '@ngrx/effects';
 import { AuthEffects } from './auth/state/auth.efffects';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import { provideCharts } from 'ng2-charts';
+import { BarController, BarElement, CategoryScale, Colors, Legend, LinearScale, LineController, LineElement, PointElement } from 'chart.js';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,6 +18,6 @@ export const appConfig: ApplicationConfig = {
     provideStore({ authState: authReducer }),
     provideEffects(AuthEffects),
     provideAnimations(),
-    provideCharts(withDefaultRegisterables()),
+    provideCharts({ registerables: [BarController, Legend, Colors, CategoryScale, LinearScale, BarElement, LineController, LineElement, PointElement] }),
   ]
 };
