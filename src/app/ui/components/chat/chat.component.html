@@ -6,11 +6,12 @@
                     <div class="message-text">{{ message.text }}</div>
                 </div>
                 <div class="message-bottom-container">
-                    <div class="add-to-dashboard-container">
+                    <div class="message-timestamp">{{ formatDateString(message.timestamp) }}</div>
+
+                    <div class="add-to-dashboard-container" (click)="handlePin(message)">
                         <i class="fa-solid fa-bookmark"></i>
                         <span>Add to Dashboard</span>
                     </div>
-                    <div class="message-timestamp">{{ formatDateString(message.timestamp) }}</div>
                 </div>
             </div>
 

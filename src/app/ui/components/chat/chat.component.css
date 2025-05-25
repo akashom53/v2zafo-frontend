@@ -31,10 +31,10 @@
 
 .message-bottom-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     align-items: center;
     cursor: pointer;
-    margin-top: .5em;
+    margin-top: 1em;
 }
 
 .add-to-dashboard-container {
@@ -78,9 +78,14 @@
 }
 
 .add-to-dashboard-container i {
-    font-size: 12px;
+    font-size: 18px;
     color: #ccc;
     margin-left: 8px;
+    transition-duration: 300ms;
+}
+
+.add-to-dashboard-container:hover i {
+    font-size: 12px;
 }
 
 .message-content {

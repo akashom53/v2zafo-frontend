@@ -1,1 +1,7 @@
-<p>card works!</p>
+<div class="main-container">
+    <div class="question-list">
+        <div *ngFor="let q of questions" class="question-container" (click)="handleClick(q)">
+            <span>{{q.question}}</span>
+        </div>
+    </div>
+</div>

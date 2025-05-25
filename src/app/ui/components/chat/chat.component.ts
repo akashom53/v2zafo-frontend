@@ -1,5 +1,5 @@
-import { NgFor, NgIf } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Location, NgFor, NgIf } from '@angular/common';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MarkdownModule } from 'ngx-markdown';
 import { Store } from '@ngrx/store';
@@ -14,13 +14,17 @@ import {
   style,
   animate
 } from '@angular/animations';
+import { DashboardStore } from '../../../dashboard/dashboard.store';
+import { MatDialog } from '@angular/material/dialog';
+import { PinDialogComponent } from './pindialog.component';
+import { Router } from '@angular/router';
 
 const TEMP = `
 ### Summary of Weekly Search Results Page Visits\n\n- **Overall Trend**: Over the last two months, there is a noticeable fluctuation in the number of weekly visits to the search results page, with a general upward trend followed by a decline towards the end of the period.\n\n- **Initial Increase**: \n  - The visits started at 15 in the week of February 24, 2025.\n  - There was a significant increase in the following weeks, peaking at 59 visits in the week of March 31, 2025.\n\n- **Subsequent Decline**:\n  - After reaching the peak, the visits decreased to 45 in the week of April 7, 2025, and continued to decline to 12 by the week of April 28, 2025.\n\n- **Notable Observations**:\n  - The highest number of visits was recorded in the week of March 31, 2025, with 59 visits.\n  - The lowest number of visits was in the week of April 28, 2025, with only 12 visits, indicating a sharp decline towards the end of the period.\n\nThis data suggests that while there was an initial increase in interest or activity on the search results page, it was not sustained, leading to a decrease in visits by the end of the two-month period.
 `;
 
 
-interface Message {
+export interface Message {
   text: string;
   sender: 'user' | 'bot';
   type: 'message' | 'think';
@@ -50,10 +54,19 @@ export class ChatComponent implements OnInit {
 
   @ViewChild('bottomAnchor') bottomAnchor?: ElementRef;
 
-  constructor(private store: Store, private chatService: ChatService) { }
+  constructor(private store: Store, private chatService: ChatService, private location: Location) {
+
+  }
 
   ngOnInit(): void {
     this.loggedIn$ = this.store.select<boolean>(selectIsAuthenticated);
+    const old = this.location.getState()
+    if (old && Object.keys(old).indexOf('question') != -1) {
+      setTimeout(() => {
+        this.message = (old as any).question
+        this.sendMessage()
+      }, 100)
+    }
   }
 
   toRelativeTime(date: Date): string {
@@ -153,7 +166,7 @@ export class ChatComponent implements OnInit {
         }
         )
       );
-
+      // return;
       // API call observable
       const apiResponse$ = this.chatService.send(userMessage).pipe(
         tap(response => {
@@ -190,44 +203,34 @@ export class ChatComponent implements OnInit {
 
       interimMessages$.subscribe()
       apiResponse$.subscribe();
-      // Combine both: show interim messages, then API response
-      // interimMessages$
-      //   .pipe(
-      //     finalize(() => {
-      //       // After all interim messages, start the API call
-      //       apiResponse$.subscribe();
-      //     })
-      //   )
-      //   .subscribe();
     }
   }
 
+  private dashboardStore = inject(DashboardStore)
+  private dialog = inject(MatDialog)
 
-  // generateThinkMessages() {
-  //   let thinkMessages: string[] = [
-  //     "Looking at what you just asked...",
-  //     "Finding the best match in our data...",
-  //     "Creating the right query...",
-  //     "Digging deeper for extra insights...",
-  //     "Wrapping it all up for you...",
-  //   ];
-  // }
-
-  // sendMessage() {
-  //   if (this.message.trim() !== '') {
-  //     this.messages.push({ text: this.message, sender: 'user', timestamp: new Date(), type: 'message' });
-  //     let _m = this.message;
-  //     this.message = '';
-  //     this.chatService.send(_m).subscribe({
-  //       next: (response) => {
-  //         this.messages.push({ text: response.result_summary ?? '', sender: 'bot', timestamp: new Date(), type: 'message' });
-  //       },
-  //       error: (error) => {
-  //         console.error('Error sending message:', error);
-  //       },
-  //     });
-  //   }
-  // }
+  handlePin(message: Message) {
+    const dialogRef = this.dialog.open(
+      PinDialogComponent, {
+      width: '50%',
+      data: { title: "Add to Dashboard", message }
+    })
+    dialogRef.afterClosed().pipe(
+      map((result) => ({
+        cardId: result['access'],
+        title: result['title'],
+        description: result['description']
+      }))
+    ).subscribe(result => {
+      if (result) {
+        console.log(result)
+        this.dashboardStore.pinQuestion({
+          ...result,
+          question: message.text,
+        })
+      }
+    })
+  }
 
   ngAfterViewChecked(): void {
     this.scrollToBottom();

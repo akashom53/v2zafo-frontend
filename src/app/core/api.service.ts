@@ -98,14 +98,17 @@ export class ApiService {
     return config;
   }
 
-  get<T>(url: string, params: Record<string, any> = {}, useAuth?: boolean, redirectOnUnauth?: boolean): Observable<T> {
+  get<T>(url: string, params: Record<string, any> = {}, useAuth: boolean = true, redirectOnUnauth: boolean = true): Observable<T> {
     const config = this.createRequestConfig(useAuth, redirectOnUnauth);
     if (params) {
       config.params = params;
     }
     return from(
       this.axiosInstance.get<T>(url, config)
-        .then((response: AxiosResponse<T>) => response.data)
+        .then((response: AxiosResponse<T>) => {
+          console.log('API response:', response);
+          return response.data
+        })
         .catch((error: AxiosError) => {
           console.error('API request failed:', error);
           throw new HttpErrorResponse({
@@ -116,7 +119,7 @@ export class ApiService {
     );
   }
 
-  post<T>(url: string, data: any, useAuth?: boolean, redirectOnUnauth?: boolean): Observable<T> {
+  post<T>(url: string, data: any, useAuth: boolean = true, redirectOnUnauth: boolean = true): Observable<T> {
     return from(
       this.axiosInstance.post<T>(url, data, this.createRequestConfig(useAuth, redirectOnUnauth))
         .then((response: AxiosResponse<T>) => response.data)

@@ -1,0 +1,26 @@
+.question-list {
+
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.question-container {
+    flex: 1 1 160px;
+    margin: 1em 1em 0 1em;
+    padding: 1em;
+    background-color: rgb(66, 110, 190);
+    border-radius: 1em;
+    cursor: pointer;
+    transition-duration: 300ms;
+}
+
+.question-container:hover {
+    background-color: rgb(44, 74, 129);
+}
+
+.question-container span {
+    display: block;
+    text-align: start;
+    color: white;
+    font-size: 12px;
+}
