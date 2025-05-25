@@ -9,8 +9,12 @@
             </div>
 
             <div *ngIf="message.sender === 'bot'&& message.type === 'message'" class="bot-message">
+                <app-bar-chart *ngIf="message.chatResponse" [chatResponse]="message.chatResponse"
+                    class="chart"></app-bar-chart>
+
                 <markdown prism class="markdown-body" [data]="message.text"></markdown>
                 <div class="message-timestamp">{{ formatDateString(message.timestamp) }}</div>
+
             </div>
 
             <div *ngIf="message.sender === 'bot' && message.type === 'think'" class="bot-message think-message">

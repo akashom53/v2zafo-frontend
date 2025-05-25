@@ -6,7 +6,8 @@ import { Store } from '@ngrx/store';
 import { selectIsAuthenticated } from '../../../auth/state/auth.selectors';
 import { catchError, concatMap, EMPTY, finalize, from, interval, map, Observable, share, Subject, take, takeUntil, tap, timer } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { ChatService } from '../../../chat/chat.service';
+import { ChatResponse, ChatService } from '../../../chat/chat.service';
+import { BarChartComponent } from "../charts/bar.chart/bar.chart.component";
 import {
   trigger,
   transition,
@@ -23,12 +24,13 @@ interface Message {
   text: string;
   sender: 'user' | 'bot';
   type: 'message' | 'think';
-  timestamp: Date;
+  timestamp: Date,
+  chatResponse?: ChatResponse;
 }
 
 @Component({
   selector: 'app-chat',
-  imports: [FormsModule, NgFor, MarkdownModule, NgIf, CommonModule],
+  imports: [FormsModule, NgFor, MarkdownModule, NgIf, CommonModule, BarChartComponent],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css',
   animations: [
@@ -150,6 +152,11 @@ export class ChatComponent implements OnInit {
             timestamp: new Date(),
             type: 'message',
           }
+
+          if (response.is_graph && response.is_graph.is_graph === 'yes' && response.result) {
+            msgObj.chatResponse = response;
+          }
+
           this.messages.push(msgObj);
 
           this.typeMessage(msgObj, response.result_summary ?? '');
