@@ -124,12 +124,50 @@
     width: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
+    padding: 1em;
 }
 
-.input-container input {
+.input-container-inner {
     flex-grow: 1;
-    padding: 8px;
+    padding-left: 24px;
     border: none;
+    max-width: 70%;
+    height: 60px;
+    border-radius: 30px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 5px;
+}
+
+.input-container-inner input {
+    flex-grow: 1;
+    height: 60px;
+    border-radius: 30px;
+    outline: none;
+    border: none;
+}
+
+.input-container-inner input:focus {
+    outline: none;
+    border: none;
+}
+
+.icon-container {
+    background-color: var(--primary-color);
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-container i {
+    font-size: 20px;
+    color: white;
 }
 
 .chart {
