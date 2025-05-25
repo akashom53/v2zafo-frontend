@@ -22,7 +22,7 @@
     color: white;
     max-width: 60%;
     min-width: 300px;
-    align-self: end;
+    justify-self: end;
     background-color: #403177;
     margin-bottom: 20px;
 }
@@ -41,10 +41,14 @@
     margin-bottom: 20px;
 }
 
+.think-message {
+    color: #0000007e;
+}
+
 /* .bot-message markdown {
     display: block;
     font-size: 16px;
-    line-height: 1.6;
+    line-height: 1.6;k
     background-color: transparent;
 } */
 

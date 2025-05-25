@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './ui/pages/home/home.component';
 import { MainLayoutComponent } from './ui/components/layout/main-layout/main-layout.component';
 import { ChatComponent } from './ui/components/chat/chat.component';
+import { LoginComponent } from './ui/pages/login/login.component';
+import { SignupComponent } from './ui/pages/signup/signup.component';
 
 export const routes: Routes = [
     {
@@ -17,5 +19,13 @@ export const routes: Routes = [
                 component: ChatComponent
             },
         ]
-    }
+    },
+    {
+        path: 'login',
+        component: LoginComponent,
+    },
+    {
+        path: 'signup',
+        component: SignupComponent,
+    },
 ];

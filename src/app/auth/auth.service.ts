@@ -10,7 +10,7 @@ interface LoginRequest {
 }
 
 interface LoginResponse {
-  access_token: string;
+  token: string;
 }
 
 interface SignupRequest {
@@ -62,8 +62,8 @@ export class AuthService {
       .pipe(
         tap(response => {
           // Store token in localStorage or a token service
-          if (response && response.access_token) {
-            localStorage.setItem('access_token', response.access_token);
+          if (response && response.token) {
+            localStorage.setItem('access_token', response.token);
           }
         }),
         catchError((error: HttpErrorResponse) => {
@@ -144,7 +144,7 @@ export class AuthService {
    * @returns Observable with validation status
    */
   validateToken(redirectOnFailure: boolean = true): Observable<boolean> {
-    return this.apiService.get<{ status: string }>(`${this.AUTH_ENDPOINT}/status`,
+    return this.apiService.get<{ status: string }>(`${this.AUTH_ENDPOINT}/status`, {},
       true, redirectOnFailure
     ).pipe(
       map((response: any) => true),

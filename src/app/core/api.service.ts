@@ -15,7 +15,7 @@ export class ApiService {
   constructor(private router: Router) {
     this.axiosInstance = axios.create({
       baseURL: environment.apiUrl,
-      timeout: 10000,
+      timeout: 100000,
       headers: { 'Content-Type': 'application/json' }
     });
 
@@ -98,11 +98,16 @@ export class ApiService {
     return config;
   }
 
-  get<T>(url: string, useAuth?: boolean, redirectOnUnauth?: boolean): Observable<T> {
+  get<T>(url: string, params: Record<string, any> = {}, useAuth?: boolean, redirectOnUnauth?: boolean): Observable<T> {
+    const config = this.createRequestConfig(useAuth, redirectOnUnauth);
+    if (params) {
+      config.params = params;
+    }
     return from(
-      this.axiosInstance.get<T>(url, this.createRequestConfig(useAuth, redirectOnUnauth))
+      this.axiosInstance.get<T>(url, config)
         .then((response: AxiosResponse<T>) => response.data)
         .catch((error: AxiosError) => {
+          console.error('API request failed:', error);
           throw new HttpErrorResponse({
             error: error.response?.data,
             status: error.response?.status

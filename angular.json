@@ -56,6 +56,7 @@
               "@angular/material/prebuilt-themes/azure-blue.css",
               "node_modules/prismjs/themes/prism-tomorrow.css",
               "node_modules/github-markdown-css/github-markdown-light.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "src/styles.css"
             ],
             "scripts": [

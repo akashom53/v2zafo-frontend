@@ -6,6 +6,7 @@ import { provideStore } from '@ngrx/store';
 import { authReducer } from './auth/state/auth.reducers';
 import { provideEffects } from '@ngrx/effects';
 import { AuthEffects } from './auth/state/auth.efffects';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,6 +14,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideMarkdown(),
     provideStore({ authState: authReducer }),
-    provideEffects(AuthEffects)
+    provideEffects(AuthEffects),
+    provideAnimations(),
   ]
 };
