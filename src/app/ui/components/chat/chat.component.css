@@ -25,6 +25,62 @@
     justify-self: end;
     background-color: #403177;
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.message-bottom-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    margin-top: .5em;
+}
+
+.add-to-dashboard-container {
+    /* padding: 12px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    border-radius: 50px;
+    background-color: #00000054; */
+    transition-duration: 300ms;
+}
+
+
+.add-to-dashboard-container:hover {
+    margin-top: 0.5em;
+    padding: 12px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    border-radius: 50px;
+    background-color: #00000054;
+}
+
+.add-to-dashboard-container span {
+    font-size: 0px;
+    opacity: 0;
+    color: #ccc;
+    margin-left: 8px;
+    cursor: pointer;
+    margin-right: 8px;
+    transition-duration: 300ms;
+}
+
+.add-to-dashboard-container:hover span {
+    font-size: 12px;
+    opacity: 1;
+    color: #ccc;
+    margin-left: 8px;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.add-to-dashboard-container i {
+    font-size: 12px;
+    color: #ccc;
+    margin-left: 8px;
 }
 
 .message-content {
@@ -53,7 +109,7 @@
 
 .message-timestamp {
     margin-top: 1em;
-    font-size: 12px;
+    font-size: 10px;
     color: #ccc;
     /*aligin to right*/
     align-self: end;

@@ -56,10 +56,28 @@ export class ChatComponent implements OnInit {
     this.loggedIn$ = this.store.select<boolean>(selectIsAuthenticated);
   }
 
+  toRelativeTime(date: Date): string {
+    const now = new Date();
+    const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+
+    if (seconds < 60) {
+      return `${seconds} seconds ago`;
+    } else if (seconds < 3600) {
+      const minutes = Math.floor(seconds / 60);
+      return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+    } else if (seconds < 86400) {
+      const hours = Math.floor(seconds / 3600);
+      return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    } else {
+      const days = Math.floor(seconds / 86400);
+      return `${days} day${days > 1 ? 's' : ''} ago`;
+    }
+  }
 
 
   formatDateString(date: Date): string {
-    return date.toLocaleDateString() + ' ' + date.toLocaleTimeString(); // Adjust the format as needed
+    return this.toRelativeTime(date)
+    // return date.toLocaleDateString() + ' ' + date.toLocaleTimeString(); // Adjust the format as needed
   }
 
   getDelay(message: Message): number {

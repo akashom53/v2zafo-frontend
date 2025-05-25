@@ -5,22 +5,12 @@
             <img src="assets/img/zafo_logo@4x.png" alt="" class="logo">
         </div>
         <nav class="nav-items">
-            <a href="#" class="nav-item active">
-                <span class="nav-icon">📊</span>
-                <span class="nav-label">Dashboard</span>
-            </a>
-            <a href="#" class="nav-item">
-                <span class="nav-icon">👥</span>
-                <span class="nav-label">Users</span>
-            </a>
-            <a href="#" class="nav-item">
-                <span class="nav-icon">📝</span>
-                <span class="nav-label">Reports</span>
-            </a>
-            <a href="#" class="nav-item">
-                <span class="nav-icon">⚙️</span>
-                <span class="nav-label">Settings</span>
-            </a>
+            <div *ngFor="let navItem of navItems;" (click)="setActiveNavItem(navItem)"
+                class="nav-item {{navItem.isActive?'active': ''}}">
+                <!-- <span class="nav-icon">📊</span> -->
+                <i class="{{navItem.icon}} nav-icon"></i>
+                <span class="nav-label">{{navItem.label}}</span>
+            </div>
         </nav>
     </aside>
 
