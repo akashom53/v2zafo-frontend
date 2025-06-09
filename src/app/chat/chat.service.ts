@@ -66,7 +66,7 @@ export class ChatService {
    * @param query The user's chat query
    * @returns Observable of the chat response
    */
-  send(query: string): Observable<ChatResponse> {
+  send(query: string, model: string): Observable<ChatResponse> {
     // return of(dummyChatResponse);
     // Validate the query
     if (!query || query.trim() === '') {
@@ -75,7 +75,7 @@ export class ChatService {
 
 
     // Use ApiService's generic get method
-    return this.apiService.get<ChatResponse>(`/chat/send`, { query }, true);
+    return this.apiService.get<ChatResponse>(`/chat/send`, { query, model }, true);
   }
 
   /**

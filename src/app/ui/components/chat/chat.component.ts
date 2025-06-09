@@ -18,6 +18,8 @@ import { DashboardStore } from '../../../dashboard/dashboard.store';
 import { MatDialog } from '@angular/material/dialog';
 import { PinDialogComponent } from './pindialog.component';
 import { Router } from '@angular/router';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 const TEMP = `
 ### Summary of Weekly Search Results Page Visits\n\n- **Overall Trend**: Over the last two months, there is a noticeable fluctuation in the number of weekly visits to the search results page, with a general upward trend followed by a decline towards the end of the period.\n\n- **Initial Increase**: \n  - The visits started at 15 in the week of February 24, 2025.\n  - There was a significant increase in the following weeks, peaking at 59 visits in the week of March 31, 2025.\n\n- **Subsequent Decline**:\n  - After reaching the peak, the visits decreased to 45 in the week of April 7, 2025, and continued to decline to 12 by the week of April 28, 2025.\n\n- **Notable Observations**:\n  - The highest number of visits was recorded in the week of March 31, 2025, with 59 visits.\n  - The lowest number of visits was in the week of April 28, 2025, with only 12 visits, indicating a sharp decline towards the end of the period.\n\nThis data suggests that while there was an initial increase in interest or activity on the search results page, it was not sustained, leading to a decrease in visits by the end of the two-month period.
@@ -34,7 +36,7 @@ export interface Message {
 
 @Component({
   selector: 'app-chat',
-  imports: [FormsModule, NgFor, MarkdownModule, NgIf, CommonModule, BarChartComponent],
+  imports: [FormsModule, NgFor, MarkdownModule, NgIf, CommonModule, BarChartComponent, MatSelectModule, MatFormFieldModule],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css',
   animations: [
@@ -51,6 +53,7 @@ export class ChatComponent implements OnInit {
   placeholder = 'Type your message...';
   messages: Message[] = [];
   loggedIn$!: Observable<boolean>;
+  selectedModel = 'focus'; // Default model selection
 
   @ViewChild('bottomAnchor') bottomAnchor?: ElementRef;
 
@@ -91,6 +94,17 @@ export class ChatComponent implements OnInit {
   formatDateString(date: Date): string {
     return this.toRelativeTime(date)
     // return date.toLocaleDateString() + ' ' + date.toLocaleTimeString(); // Adjust the format as needed
+  }
+
+  getModelDisplayName(model: string): string {
+    switch (model) {
+      case 'focus':
+        return 'focus';
+      case 'fusion':
+        return 'fusion';
+      default:
+        return model;
+    }
   }
 
   getDelay(message: Message): number {
@@ -168,7 +182,7 @@ export class ChatComponent implements OnInit {
       );
       // return;
       // API call observable
-      const apiResponse$ = this.chatService.send(userMessage).pipe(
+      const apiResponse$ = this.chatService.send(userMessage, this.selectedModel).pipe(
         tap(response => {
           cancelInterim$.next();
           cancelInterim$.complete();

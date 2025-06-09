@@ -33,6 +33,16 @@
     </div>
     <div class="input-container">
         <div class="input-container-inner">
+            <div class="model-select-container">
+                <mat-select [(ngModel)]="selectedModel" class="model-select" panelClass="model-dropdown-panel">
+                    <mat-select-trigger>
+                        <span class="at-symbol">&#64;</span><span class="model-display">{{
+                            getModelDisplayName(selectedModel) }}</span>
+                    </mat-select-trigger>
+                    <mat-option value="focus">Zafo Focus Model</mat-option>
+                    <mat-option value="fusion">Zafo Fusion Model</mat-option>
+                </mat-select>
+            </div>
             <input [placeholder]="placeholder" type="text" [(ngModel)]="message" (keyup.enter)="sendMessage()">
             <!-- <button (click)="sendMessage()">Send</button> -->
             <div class="icon-container">
